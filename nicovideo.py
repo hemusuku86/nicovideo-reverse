@@ -18,7 +18,7 @@ class uri:
   def __init__(self, s):
     self.url = s
   def getPath(self):
-    return "/" + "/".join(self.url.split("/")[3:]) + "/"
+    return "/" + "/".join(self.url.split("/")[3:])
   def getHost(self):
     return self.url.split("/")[2]
 
@@ -64,24 +64,18 @@ def register_test():
   if len(str(s)) == 1:
     s = f"0{s}"
   frontend_version = "8.17.1"
-  date = f"{now.year}{m}{d}T{h}{mm}{s}Z"
+  date = f"{now.year}{m}{d}T{h}{mm}{s}+0000"
   signature = nicoaccount_signature(Resource[frontend_version]["account_api_secret"], "POST", uri(oh_m_d("https://account.nicovideo.jp/", "/api/v1/register/account_passport")), None, "", date, "X-Nicoaccount-Date")
   print(f"Generated X-Nicoaccount-Signature -> {signature}")
-  headers = {
-    "accept": "application/json",
-    "accept-language": "ja",
-    "accept-encoding": "gzip, deflate, br",
-    "content-type": "application/json",
-    "Host": uri(oh_m_d("https://account.nicovideo.jp/", "/api/v1/register/account_passport")).getHost(),
+  s = requests.Session()
+  s.headers.update({
+    "accept-language": "ja-JP",
+    "user-agent": "Niconico/1.0 (Linux; U; Android 9; ja-jp; nicoandroid 23116PN5BC) Version/8.17.1",
     "X-Nicoaccount-Date": date,
     "X-Nicoaccount-Signature": signature,
     "X-Nicoaccount-Api-Key": Resource[frontend_version]["account_api_key"],
-    "x-frontend-id": "1",
-    "x-frontend-version": frontend_version,
-    "x-request-with": "nicoandroid",
-    "X-OS-Version": "15", # android.os.Build.VERSION.RELEASE
-    "X-Model-Name": "panther" # android.os.Build.DEVICE
-  }
-  print(requests.post("https://account.nicovideo.jp/api/v1/register/account_passport", headers=headers, data="{}").text)
-
-register_test()
+    "X-Frontend-Id": "1",
+    "X-Frontend-Version": frontend_version,
+    "X-Request-With": "nicoandroid"
+  })
+  print(s.post("https://account.nicovideo.jp/api/v1/register/account_passport", json={}).text)
