@@ -70,6 +70,7 @@ def register_test():
   s = requests.Session()
   s.headers.update({
     "accept-language": "ja-JP",
+    "content-type": "text/plain; charset=utf-8",
     "user-agent": "Niconico/1.0 (Linux; U; Android 9; ja-jp; nicoandroid 23116PN5BC) Version/8.17.1",
     "X-Nicoaccount-Date": date,
     "X-Nicoaccount-Signature": signature,
@@ -78,4 +79,4 @@ def register_test():
     "X-Frontend-Version": frontend_version,
     "X-Request-With": "nicoandroid"
   })
-  print(s.post("https://account.nicovideo.jp/api/v1/register/account_passport", json={}).text)
+  print(s.post("https://account.nicovideo.jp/api/v1/register/account_passport").text)
