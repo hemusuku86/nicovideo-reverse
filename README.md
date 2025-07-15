@@ -1,2 +1,3 @@
 # nicovideo-reverse
-nicovideo account_passport reverse engineer (x-nicoaccount-signature, x-nicoaccount-api-key, more)
+reversed nicovideo 8.17.1 apk with jadx<br>
+currently doesn't work
