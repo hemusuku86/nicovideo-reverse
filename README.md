@@ -1,5 +1,4 @@
 # nicovideo-reverse
-reversed nicovideo 8.17.1 apk with jadx<br>
-currently doesn't work<br>
-~~I got that there're some issue on signature hex (i got different hex with same param between nicovideo.py and actual app)~~
-It's fixed but still not working wtf 😭
+https://account.nicovideo.jp/api/v1/register/account_passport headers reverse engineered<br>
+ニコニコ動画のゲスト登録リクエストの解析です。
+# 🖼️showcase / スクショ
